@@ -201,8 +201,8 @@ if __name__ == "__main__":
                 keys.append(int(f"{a}{b}{c}"))
 
     # Create the dictionary
-    mi_total = {key: 0 for key in keys}
-    total_mi = sum(mi_total.values())
+    mi_table = {key: 0 for key in keys}
+    total_mi = sum(mi_table.values())
 
     for iteration in range(1, args.num_iterations + 1):
         # Annealing the rate if instructed to do so.
@@ -298,10 +298,10 @@ if __name__ == "__main__":
                     mi_value += as_prob*(a_given_ss - a_given_s)
 
             # mi_total[prev_state] = mi_value
-            mi_total[prev_state] = mi_value  +  0.1 * (mi_total[prev_state] - mi_value)
+            mi_table[prev_state] = mi_value  +  0.1 * (mi_table[prev_state] - mi_value)
 
         # Optimizing the policy and value network
-        total_mi = sum(mi_total.values())
+        total_mi = sum(mi_table.values())
         b_inds = np.arange(args.batch_size)
         clipfracs = []
         for epoch in range(args.update_epochs):
